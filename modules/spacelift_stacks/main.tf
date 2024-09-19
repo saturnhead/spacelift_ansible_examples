@@ -72,7 +72,7 @@ resource "spacelift_mounted_file" "private_ssh_key" {
   for_each      = {for context_key, context_value in var.contexts: context_key => context_value if context_value.add_private_ssh_key == true }
   context_id    = spacelift_context.this[each.key].id
   relative_path = "id_rsa"
-  content       = base64encode(tls_private_key.rsa.private_key_pem)
+  content       = base64encode(tls_private_key.rsa.private_key_openssh)
 }
 
 resource "spacelift_mounted_file" "this" {
