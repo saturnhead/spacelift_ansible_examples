@@ -4,5 +4,3 @@ regions:
 filters:
   tag:Env: dev
   instance-state-name: running
-hostnames:
-  - tag:Name
