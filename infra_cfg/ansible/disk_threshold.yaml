@@ -30,6 +30,7 @@
       mode: '0644'
    
   - name: Restart Nginx to apply changes
+    become: true
     service:
       name: nginx
       state: restarted
