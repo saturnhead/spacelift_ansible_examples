@@ -30,7 +30,6 @@ variable "contexts" {
   description = "A map of context configurations"
   type = map(object({
     description         = string
-    name                = string
     before_init         = optional(list(string), [])
     before_plan         = optional(list(string), [])
     space_name          = optional(string, "root")
