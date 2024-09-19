@@ -16,7 +16,7 @@ module "spacelift_stacks" {
             branch           = "main"
             project_root     = "infra_cfg/ansible" 
             description      = "Ansible stack that uses a dynamic AWS inventory"
-            ansible_playbook = "disk_threshold.yaml"
+            ansible_playbook = ["disk_threshold.yaml"]
             labels           = ["ansible"]
         }
     }
