@@ -23,7 +23,7 @@
   
   - name: Template the Nginx index page
     template:
-      src: /path/to/index.html.j2
+      src: ./index.html.j2
       dest: /var/www/html/index.html
       owner: www-data
       group: www-data
