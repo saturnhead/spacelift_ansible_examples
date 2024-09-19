@@ -29,8 +29,9 @@
       group: www-data
       mode: '0644'
    
-  - name: Restart Nginx to apply changes
+  handlers:
+  - name: Restart Nginx
     become: true
-    service:
+    ansible.builtin.service:
       name: nginx
       state: restarted
