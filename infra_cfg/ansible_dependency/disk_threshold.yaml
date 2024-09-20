@@ -1,4 +1,6 @@
 - hosts: all
+  gather_facts: false
+  
   pre_tasks:
     - name: Retrieve SSH private key from SSM
       command: aws ssm get-parameter --name "/dev/ssh/private_key" --with-decryption --query "Parameter.Value" --output text
@@ -9,6 +11,7 @@
         content: "{{ ssh_key.stdout }}"
         dest: "/tmp/ansible_key.pem"
         mode: '0600'
+    
     - name: Set ansible_ssh_private_key_file variable
       set_fact:
         ansible_ssh_private_key_file: "/tmp/ansible_key.pem"
