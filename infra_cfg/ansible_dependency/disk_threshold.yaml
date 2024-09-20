@@ -50,7 +50,7 @@
   - name: Template the Nginx index page for prod hosts
     become: true
     template:
-      src: "./templates/index_prod.html.j2"
+      src: "./index_prod.html.j2"
       dest: /var/www/html/index.html
       owner: www-data
       group: www-data
@@ -60,7 +60,7 @@
   - name: Template the Nginx index page for qa hosts
     become: true
     template:
-      src: "./templates/index_qa.html.j2"
+      src: "./index_qa.html.j2"
       dest: /var/www/html/index.html
       owner: www-data
       group: www-data
@@ -70,7 +70,7 @@
   - name: Template the Nginx index page for dev hosts
     become: true
     template:
-      src: "./templates/index_dev.html.j2"
+      src: "./index_dev.html.j2"
       dest: /var/www/html/index.html
       owner: www-data
       group: www-data
