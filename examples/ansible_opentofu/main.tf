@@ -20,7 +20,7 @@ module "spacelift_stacks" {
             before_init      = ["echo \"$INSTANCE_JSON\" | jq -r 'to_entries | group_by(.value.env) | .[] as $group | \"[\" + $group[0].value.env + \"]\\n\" + ($group | map(.value.public_dns) | join(\"\\n\")) + \"\\n\"' > /mnt/workspace/ansible_inventory.ini", 
                 "aws ssm get-parameter --region eu-west-1 --name '/dev/ssh/private_key' --with-decryption --query 'Parameter.Value' --output text > /mnt/workspace/id_rsa_ansible",
                 "python3 -m pip install boto3 --break-system-packages", 
-                "chmod 600 /mnt/workspace/id_rsa"
+                "chmod 600 /mnt/workspace/id_rsa_ansible"
             ]
             before_apply     = ["python3 -m pip install boto3 --break-system-packages", "chmod 600 /mnt/workspace/id_rsa_ansible"]
             ansible_playbook = ["disk_threshold.yaml"]
