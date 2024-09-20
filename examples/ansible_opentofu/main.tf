@@ -18,6 +18,7 @@ module "spacelift_stacks" {
             description      = "Ansible stack that uses an OpenTofu generated inventory"
             labels           = ["ansible"]
             before_init      = ["echo \"$INSTANCE_JSON\" | jq -r 'to_entries | group_by(.value.env) | .[] as $group | \"[\" + $group[0].value.env + \"]\\n\" + ($group | map(.value.public_dns) | join(\"\\n\")) + \"\\n\"' > /mnt/workspace/ansible_inventory.ini", 
+                "aws ssm get-parameter --name '/dev/ssh/private_key' --with-decryption --query 'Parameter.Value' --output text > /mnt/workspace/id_rsa",
                 "python3 -m pip install boto3 --break-system-packages", 
                 "chmod 600 /mnt/workspace/id_rsa"
             ]
