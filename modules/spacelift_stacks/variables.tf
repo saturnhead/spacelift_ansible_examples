@@ -88,3 +88,22 @@ variable "policies" {
   }))
   default = {}
 }
+
+variable "stack_dependencies" {
+  description = "Creates dependencies between stacks"
+  type = map(object({
+    stack_child  = string
+    stack_parent = string 
+  }))
+  default = {}
+}
+
+variable "dependency_variables" {
+  description = "Shares variables between parent and child stacks"
+  type = map(object({
+    dependency_name = string
+    output_name     = string
+    input_name      = string
+  }))
+  default = {}
+}

@@ -14,7 +14,7 @@ module "spacelift_stacks" {
         ansible_dynamic_inventory = {
             repo             = "spacelift_ansible_examples"
             branch           = "main"
-            project_root     = "infra_cfg/ansible" 
+            project_root     = "infra_cfg/ansible_dynamic_inventory" 
             description      = "Ansible stack that uses a dynamic AWS inventory"
             ansible_playbook = ["disk_threshold.yaml"]
             labels           = ["ansible"]
@@ -43,7 +43,7 @@ module "spacelift_stacks" {
     env_vars = {
       ansible_cfg = {
         name         = "ANSIBLE_CONFIG"
-        value        = "/mnt/workspace/source/infra_cfg/ansible/ansible.cfg"
+        value        = "/mnt/workspace/source/infra_cfg/ansible_dynamic_inventory/ansible.cfg"
         context_name = "ansible_context"
       }
     }

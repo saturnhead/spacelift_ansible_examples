@@ -94,3 +94,16 @@ resource "spacelift_context_attachment" "this" {
   stack_id   = spacelift_stack.this[each.value.stack_name].id
   priority   = each.value.priority
 }
+
+resource "spacelift_stack_dependency" "this" {
+  for_each            = var.stack_dependencies
+  stack_id            = spacelift_stack.this[each.value.stack_child].id
+  depends_on_stack_id = spacelift_stack.this[each.value.stack_parent].id
+}
+
+resource "spacelift_stack_dependency_reference" "this" {
+  for_each            = var.dependency_variables
+  stack_dependency_id = spacelift_stack_dependency.this[dependency_name].id
+  output_name         = each.value.output_name
+  input_name          = each.value.input_name
+}

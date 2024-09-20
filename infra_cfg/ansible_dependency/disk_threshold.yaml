@@ -1,0 +1,72 @@
+- hosts: all
+  pre_tasks:
+    - name: Retrieve SSH private key from SSM
+      command: aws ssm get-parameter --name "/dev/ssh/private_key" --with-decryption --query "Parameter.Value" --output text
+      register: ssh_key
+
+    - name: Save the private key to a file
+      copy:
+        content: "{{ ssh_key.stdout }}"
+        dest: "/tmp/ansible_key.pem"
+        mode: '0600'
+    - name: Set ansible_ssh_private_key_file variable
+      set_fact:
+        ansible_ssh_private_key_file: "/tmp/ansible_key.pem"
+  vars:
+    disk_space_threshold: 10.0 
+
+  tasks:
+  - name: "Check available disk space on / (fail when it's less than {{ disk_space_threshold }} GB)"
+    shell: df -h / | awk 'NR==2 {print $4}'
+    register: disk_space
+    changed_when: false
+    when: not ansible_check_mode
+
+  - name: "Fail if available disk space is less than {{ disk_space_threshold }} GB"
+    fail:
+      msg: "Available disk space on {{ inventory_hostname }} is {{ disk_space.stdout }}. Threshold is {{ disk_space_threshold }} GB."
+    when: not ansible_check_mode and ((disk_space.stdout | regex_replace('G','') | float ) < (disk_space_threshold | float))
+  
+  - name: Install Nginx
+    become: true
+    ansible.builtin.apt:
+      name: nginx
+      update_cache: yes
+      state: present
+    
+  - name: Template the Nginx index page for prod hosts
+    become: true
+    template:
+      src: "./templates/index_prod.html.j2"
+      dest: /var/www/html/index.html
+      owner: www-data
+      group: www-data
+      mode: '0644'
+    when: "'prod' in group_names"
+
+  - name: Template the Nginx index page for qa hosts
+    become: true
+    template:
+      src: "./templates/index_qa.html.j2"
+      dest: /var/www/html/index.html
+      owner: www-data
+      group: www-data
+      mode: '0644'
+    when: "'qa' in group_names"
+
+  - name: Template the Nginx index page for dev hosts
+    become: true
+    template:
+      src: "./templates/index_dev.html.j2"
+      dest: /var/www/html/index.html
+      owner: www-data
+      group: www-data
+      mode: '0644'
+    when: "'dev' in group_names"
+   
+  handlers:
+  - name: Restart Nginx
+    become: true
+    ansible.builtin.service:
+      name: nginx
+      state: restarted
