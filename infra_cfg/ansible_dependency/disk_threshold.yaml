@@ -19,7 +19,6 @@
 #       run_once: true
 
 - hosts: all
-  gather_facts: false
   # pre_tasks:
   #   - name: Debug ansible_ssh_private_key_file variable
   #     debug:
