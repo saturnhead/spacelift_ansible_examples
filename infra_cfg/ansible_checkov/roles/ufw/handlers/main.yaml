@@ -1,0 +1,5 @@
+---
+- name: Reload UFW
+  ufw:
+    state: reloaded
+  become: true

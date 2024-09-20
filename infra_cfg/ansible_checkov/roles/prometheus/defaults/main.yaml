@@ -1,0 +1,9 @@
+
+---
+prometheus_version: "2.37.0"
+prometheus_global_scrape_interval: 15s
+prometheus_global_evaluation_interval: 15s
+prometheus_scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']

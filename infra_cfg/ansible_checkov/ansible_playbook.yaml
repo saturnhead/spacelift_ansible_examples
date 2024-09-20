@@ -1,0 +1,18 @@
+- hosts: all
+  roles:
+    - role: ufw
+      vars:
+        ufw_allowed_ports: 
+          - "22"
+          - "80"
+          - "443"
+          - "9090"
+        ufw_logging: 'on'
+    - role: prometheus
+      vars:
+        prometheus_version: "2.38.0"
+        prometheus_storage_retention: "30d"
+        prometheus_scrape_configs:
+          - job_name: 'prometheus'
+            static_configs:
+              - targets: ['localhost:9090']

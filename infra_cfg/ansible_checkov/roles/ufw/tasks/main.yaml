@@ -1,0 +1,30 @@
+---
+- name: Ensure UFW is installed
+  apt:
+    name: ufw
+    state: present
+  become: true
+
+- name: Enable UFW
+  ufw:
+    state: enabled
+  become: true
+
+- name: Allow specified ports
+  ufw:
+    rule: allow
+    port: "{{ item }}"
+  loop: "{{ ufw_allowed_ports | default([]) }}"
+  become: true
+
+- name: Set default incoming policy
+  ufw:
+    default: deny
+    direction: incoming
+  become: true
+
+- name: Set default outgoing policy
+  ufw:
+    default: allow
+    direction: outgoing
+  become: true
