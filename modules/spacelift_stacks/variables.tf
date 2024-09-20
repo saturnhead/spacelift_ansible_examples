@@ -32,6 +32,7 @@ variable "contexts" {
     description         = string
     before_init         = optional(list(string), [])
     before_plan         = optional(list(string), [])
+    before_apply        = optional(list(string), [])
     space_name          = optional(string, "root")
     add_public_ssh_key  = optional(bool, "false")
     add_private_ssh_key = optional(bool, "false")

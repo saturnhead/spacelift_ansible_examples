@@ -21,6 +21,13 @@
       update_cache: yes
       state: present
   
+  - name: Ensure /var/www/html directory is writable
+    file:
+      path: /var/www/html
+      owner: www-data
+      group: www-data
+      mode: '0755'
+    
   - name: Template the Nginx index page
     template:
       src: ./index.html.j2

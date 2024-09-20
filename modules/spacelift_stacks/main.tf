@@ -29,13 +29,14 @@ resource "spacelift_aws_integration_attachment" "integration" {
 }
 
 resource "spacelift_context" "this" {
-  for_each    = var.contexts
-  description = each.value.description
-  name        = each.key
-  before_init = each.value.before_init
-  before_plan = each.value.before_plan
-  space_id    = each.value.space_name
-  labels      = each.value.labels
+  for_each     = var.contexts
+  description  = each.value.description
+  name         = each.key
+  before_init  = each.value.before_init
+  before_plan  = each.value.before_plan
+  before_apply = each.value.before_apply
+  space_id     = each.value.space_name
+  labels       = each.value.labels
 }
 
 

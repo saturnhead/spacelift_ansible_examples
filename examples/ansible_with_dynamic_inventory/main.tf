@@ -32,6 +32,8 @@ module "spacelift_stacks" {
         labels              = ["autoattach:ansible"]
         add_public_ssh_key  = true
         add_private_ssh_key = true
+        before_init         = ["python3 -m pip install boto3 --break-system-packages", "chmod 600 /mnt/workspace/id_rsa"]
+        before_apply        = ["python3 -m pip install boto3 --break-system-packages", "chmod 600 /mnt/workspace/id_rsa"]
       }
     }
     env_vars = {
