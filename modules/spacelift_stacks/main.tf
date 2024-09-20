@@ -51,29 +51,31 @@ resource "spacelift_policy" "this" {
 
 resource "spacelift_environment_variable" "this" {
   for_each   = var.env_vars
-  context_id = spacelift_context.this[each.value.context_name].id
+  context_id = each.value.add_to_context ? spacelift_context.this[each.value.context_name].id : null
+  stack_id   = each.value.add_to_context ? null : spacelift_stack.this[each.value.stack_name].id
   name       = each.value.name
   value      = each.value.value
   write_only = each.value.is_secret
 }
 
 resource "tls_private_key" "rsa" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
+  for_each      = {for context_key, context_value in var.contexts: context_key => context_value if context_value.add_public_ssh_key == true }
+  algorithm     = "RSA"
+  rsa_bits      = 4096
 }
 
 resource "spacelift_mounted_file" "public_ssh_key" {
   for_each      = {for context_key, context_value in var.contexts: context_key => context_value if context_value.add_public_ssh_key == true }
   context_id    = spacelift_context.this[each.key].id
   relative_path = "id_rsa.pub"
-  content       = base64encode(tls_private_key.rsa.public_key_openssh)
+  content       = base64encode(tls_private_key.rsa[each.key].public_key_openssh)
 }
 
 resource "spacelift_mounted_file" "private_ssh_key" {
   for_each      = {for context_key, context_value in var.contexts: context_key => context_value if context_value.add_private_ssh_key == true }
   context_id    = spacelift_context.this[each.key].id
   relative_path = "id_rsa"
-  content       = base64encode(tls_private_key.rsa.private_key_openssh)
+  content       = base64encode(tls_private_key.rsa[each.key].private_key_openssh)
 }
 
 resource "spacelift_mounted_file" "this" {

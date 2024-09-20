@@ -1,5 +1,7 @@
 # Spacelift Ansible examples
 
+You can find all examples in the examples directory.
+
 ## Ansible with dynamic inventory
 
 This will run a playbook that install nginx on all of your hosts, only if the free disk space is greater than 10.0GB.

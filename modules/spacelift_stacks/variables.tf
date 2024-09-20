@@ -44,10 +44,12 @@ variable "contexts" {
 variable "env_vars" {
   description = "A map of environment variable configurations"
   type = map(object({
-    context_name = string
-    name         = string
-    value        = string
-    is_secret    = optional(bool, false)
+    context_name   = optional(string, null)
+    stack_name     = optional(string, null)
+    add_to_context = optional(bool, true)
+    name           = string
+    value          = string
+    is_secret      = optional(bool, false)
   }))
   default = {}
 }
