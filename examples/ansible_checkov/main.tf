@@ -31,7 +31,7 @@ module "spacelift_stacks" {
     integrations = {
       ansible_integration = {
         integration_id = "01H79TE7EP3W7K4AMMV447J189"
-        stack_name     = "ansible_opentofu_inventory"      
+        stack_name     = "ansible_checkov"      
       }
     }
     contexts = {}
@@ -39,7 +39,7 @@ module "spacelift_stacks" {
       ansible_cfg = {
         name           = "ANSIBLE_CONFIG"
         value          = "/mnt/workspace/source/infra_cfg/ansible_dependency/ansible.cfg"
-        stack_name     = "ansible_opentofu_inventory"
+        stack_name     = "ansible_checkov"
         add_to_context = false
       }
     }
