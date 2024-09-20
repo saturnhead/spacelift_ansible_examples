@@ -38,7 +38,7 @@ module "spacelift_stacks" {
     env_vars = {
       ansible_cfg = {
         name           = "ANSIBLE_CONFIG"
-        value          = "/mnt/workspace/source/infra_cfg/ansible_dependency/ansible.cfg"
+        value          = "/mnt/workspace/source/infra_cfg/ansible_checkov/ansible.cfg"
         stack_name     = "ansible_checkov"
         add_to_context = false
       }
