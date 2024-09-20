@@ -25,7 +25,7 @@ module "spacelift_stacks" {
                 "checkov -s -o json --directory . --framework ansible > checkov.custom.spacelift.json"
             ]
             before_apply     = ["python3 -m pip install boto3 --break-system-packages", "chmod 600 /mnt/workspace/id_rsa_ansible"]
-            ansible_playbook = ["ansible-playbook.yaml"]
+            ansible_playbook = ["ansible_playbook.yaml"]
         }
     }
     integrations = {
