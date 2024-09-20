@@ -15,6 +15,8 @@
     - name: Set ansible_ssh_private_key_file variable globally
       set_fact:
         ansible_ssh_private_key_file: "/tmp/ansible_key.pem"
+      delegate_to: localhost
+      run_once: true
 
 - hosts: all
   gather_facts: false
