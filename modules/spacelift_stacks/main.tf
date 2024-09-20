@@ -103,7 +103,7 @@ resource "spacelift_stack_dependency" "this" {
 
 resource "spacelift_stack_dependency_reference" "this" {
   for_each            = var.dependency_variables
-  stack_dependency_id = spacelift_stack_dependency.this[dependency_name].id
+  stack_dependency_id = spacelift_stack_dependency.this[each.value.dependency_name].id
   output_name         = each.value.output_name
   input_name          = each.value.input_name
 }
