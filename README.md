@@ -17,6 +17,8 @@ filters:
   instance-state-name: running
 ```
 
+You will need to modify the integration_id to an integration from your environment.
+
 To override runtime configuration for the free disk space threshold, you can use this:
 
 ```yaml

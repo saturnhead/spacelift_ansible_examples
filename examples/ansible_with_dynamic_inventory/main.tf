@@ -27,11 +27,15 @@ module "spacelift_stacks" {
       }
     }
     contexts = {
-      ansible_context = {
+      ssh_key_context = {
         description         = "Ansible context"
         labels              = ["autoattach:ansible"]
         add_public_ssh_key  = true
         add_private_ssh_key = true
+      }
+      ansible_context = {
+        description         = "Ansible context"
+        labels              = ["autoattach:ansible"]
         before_init         = ["python3 -m pip install boto3 --break-system-packages", "chmod 600 /mnt/workspace/id_rsa"]
         before_apply        = ["python3 -m pip install boto3 --break-system-packages", "chmod 600 /mnt/workspace/id_rsa"]
       }

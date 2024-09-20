@@ -11,6 +11,9 @@ resource "spacelift_stack" "this" {
   space_id                = each.value.space_name
   runner_image            = each.value.runner_image
   worker_pool_id          = each.value.worker_pool_id
+  before_init             = each.value.before_init
+  before_plan             = each.value.before_plan
+  before_apply            = each.value.before_apply
   
   dynamic "ansible" {
     for_each = each.value.ansible_playbook
