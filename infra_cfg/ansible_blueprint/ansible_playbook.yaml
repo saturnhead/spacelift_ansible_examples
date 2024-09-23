@@ -1,6 +1,7 @@
 ---
 - name: Apache installation with custom message setup and conditionally install htop
   hosts: all
+  ignore_unreachable: yes
   become: yes
   vars:
     custom_message: "{{ lookup('env', 'CUSTOM_MESSAGE') }}"
@@ -12,21 +13,23 @@
         name: apache2
         state: present
         update_cache: yes
-
-    - name: Ensure Apache is running and enabled at boot
-      service:
-        name: apache2
-        state: started
-        enabled: yes
+      notify: "Start and enable Apache"
 
     - name: Create custom index.html with a message
       copy:
         content: "<html><body><h1>{{ custom_message }}</h1></body></html>"
         dest: /var/www/html/index.html
         mode: '0644'
-    
+
     - name: Conditionally install htop if requested
       apt:
         name: htop
         state: present
       when: install_htop == "yes"
+
+  handlers:
+    - name: Start and enable Apache
+      service:
+        name: apache2
+        state: started
+        enabled: yes
