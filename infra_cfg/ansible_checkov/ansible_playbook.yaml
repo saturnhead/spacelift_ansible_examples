@@ -10,7 +10,8 @@
 
     - name: Skip unreachable hosts
       meta: end_play
-      when: ping_result is not append
+      when: ping_result.ping is not defined or ping_result.ping != "pong"
+
 - hosts: all
   roles:
     - role: ufw
