@@ -2,7 +2,7 @@
 - name: Apache installation with custom message setup and conditionally install htop
   hosts: all
   ignore_unreachable: yes
-  become: yes
+  become: true
   vars:
     custom_message: "{{ lookup('env', 'CUSTOM_MESSAGE') }}"
     install_htop: "{{ lookup('env', 'INSTALL_HTOP') }}"

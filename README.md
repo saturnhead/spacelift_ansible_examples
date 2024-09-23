@@ -73,3 +73,12 @@ To override runtime configuration for the free disk space threshold, you can use
 environment:
   SPACELIFT_ANSIBLE_CLI_ARGS: -e disk_space_threshold=2.0
 ```
+
+## Ansible blueprint
+
+In this example, you will need to go to Blueprints and select create blueprint and paste the yaml code from the **examples/ansible_blueprint/blueprint.yaml**. You will need to modify the integration_id to an integration from your environment.
+
+Publish the blueprint and then you will be able to create stacks from it:
+![](./images/blueprint.png)
+
+The playbook installs apache2 on Ubuntu, and based on the inputs you provide, you will customize the message in the **index.html** file. In addition to this, you can also conditionally install htop, by providing yes or no to the **Do you want to install htop** input.
