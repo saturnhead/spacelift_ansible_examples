@@ -50,11 +50,5 @@ module "spacelift_stacks" {
         stack_name     = "ansible_checkov"
         add_to_context = false
       }
-      skip_plan = {
-        name           = "SPACELIFT_SKIP_PLANNING"
-        value          = true
-        stack_name     = "ansible_checkov"
-        add_to_context = false
-      }
     }
 }
