@@ -33,3 +33,4 @@
         name: apache2
         state: started
         enabled: yes
+      when: not ansible_check_mode
