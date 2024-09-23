@@ -1,8 +1,6 @@
 inputs:
   - id: stack_name
     name: The name of the stack
-  - id: environment_name
-    name: Name of the environment
   - id: space
     name: Name of the space where the stack should be. Defaults to root.
     type: select
@@ -14,13 +12,18 @@ inputs:
     name: Trigger a run upon stack creation
     type: boolean
     default: false
-  - id: aws_region
-    name: AWS Region
-    type: select 
-    default: eu-west-1
+  - id: custom_message
+    name: Add a custom message for the Apache Hello world
+    type: string
+    default: Hello world!
+  - id: install_htop
+    name: Do you want to install htop?
+    type: select
+    default: no
     options:
-      - us-east-1
-      - eu-west-1
+      - yes
+      - no
+
 stack:
   name: ${{ inputs.stack_name }}
   space: ${{ inputs.space }}
@@ -35,20 +38,33 @@ stack:
     project_root: infra_cfg/ansible_blueprint
   vendor:
     ansible:
+      playbook: ansible_playbook.yaml
       
   attachments:
     clouds:
       aws:
         id: 01H79TE7EP3W7K4AMMV447J189
         read: true
-        write: true 
+        write: true
+  hooks:
+    init:
+      before: 
+        - "aws ssm get-parameter --region eu-west-1 --name '/dev/ssh/private_key' --with-decryption --query 'Parameter.Value' --output text > /mnt/workspace/id_rsa_ansible"
+        - "python3 -m pip install boto3 --break-system-packages"
+        - "chmod 600 /mnt/workspace/id_rsa_ansible"
+    apply:
+      before:
+        - "python3 -m pip install boto3 --break-system-packages"
+        - "chmod 600 /mnt/workspace/id_rsa_ansible"
   environment:
     variables:
       - name: AWS_REGION
-        value: ${{ inputs.aws_region }}
-      - name: TF_VAR_node_name
-        value: ${{ inputs.environment_name }}
-      - name: TF_VAR_instance_size
-        value: ${{ inputs.instance_size }}
+        value: eu-west-1
+      - name: ANSIBLE_CONFIG
+        value: /mnt/workspace/source/infra_cfg/ansible_blueprint/ansible.cfg
+      - name: CUSTOM_MESSAGE
+        value: ${{ inputs.custom_message }}
+      - name: INSTALL_HTOP
+        value: ${{ inputs.install_htop }}
 options:
   trigger_run: ${{ inputs.trigger_run }}
