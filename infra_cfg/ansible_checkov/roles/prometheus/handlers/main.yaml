@@ -3,3 +3,4 @@
   systemd:
     name: prometheus
     state: restarted
+  when: not ansible_check_mode
