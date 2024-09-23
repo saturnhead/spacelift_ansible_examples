@@ -50,7 +50,7 @@
 
 - name: Copy Prometheus configuration
   template:
-    src: prometheus.yml.j2
+    src: prometheus.yaml.j2
     dest: /etc/prometheus/prometheus.yml
     owner: prometheus
     group: prometheus
