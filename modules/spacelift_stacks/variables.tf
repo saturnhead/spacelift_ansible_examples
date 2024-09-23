@@ -85,6 +85,7 @@ variable "policies" {
     policy_file_name = string # "Name of the policy file, withouth the .rego extenstion" 
     type             = string # Policy type, can be PLAN, APPROVAL, GIT_PUSH, NOTIFICATION, TRIGGER
     labels           = list(string) # A list of labels, for autoattaching, add the autoattach:label
+    space_name       = optional(string, "root")
   }))
   default = {}
 }

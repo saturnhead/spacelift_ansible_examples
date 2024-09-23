@@ -49,6 +49,7 @@ resource "spacelift_policy" "this" {
   body     = file("${path.module}/policies/${each.value.policy_file_name}.rego")
   type     = each.value.type
   #labels   = [for label in each.value.labels: "autoattach:${label}"]
+  space_id = each.value.space_name
   labels   = each.value.labels
 }
 
