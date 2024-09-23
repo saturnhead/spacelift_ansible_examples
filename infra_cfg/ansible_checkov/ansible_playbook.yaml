@@ -13,6 +13,7 @@
       when: ping_result.unreachable is defined or ping_result.ping is not defined or ping_result.ping != "pong"
 
 - hosts: all
+  gather_facts: false
   roles:
     - role: ufw
       vars:
