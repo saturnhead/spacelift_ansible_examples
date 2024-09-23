@@ -16,7 +16,7 @@ module "spacelift_stacks" {
             branch           = "main"
             project_root     = "infra_cfg/ansible_checkov" 
             description      = "Ansible stack that uses a dynamic inventory and scans for vulnerabilities"
-            labels           = ["ansible"]
+            labels           = ["ansible", "ansible_checkov"]
             before_init      = ["aws ssm get-parameter --region eu-west-1 --name '/dev/ssh/private_key' --with-decryption --query 'Parameter.Value' --output text > /mnt/workspace/id_rsa_ansible",
                 "python3 -m pip install boto3 --break-system-packages", 
                 "chmod 600 /mnt/workspace/id_rsa_ansible",
@@ -27,6 +27,14 @@ module "spacelift_stacks" {
             before_apply     = ["python3 -m pip install boto3 --break-system-packages", "chmod 600 /mnt/workspace/id_rsa_ansible"]
             ansible_playbook = ["ansible_playbook.yaml"]
         }
+    }
+    policies = {
+      checkov_scan_ansible = {
+        policy_name        = "Checkov scan Ansible"
+        policy_file_name   = "checkov_ansible"
+        type               = "PLAN"
+        labels             = ["autoattach:ansible_checkov"]
+      }
     }
     integrations = {
       ansible_integration = {
@@ -39,6 +47,12 @@ module "spacelift_stacks" {
       ansible_cfg = {
         name           = "ANSIBLE_CONFIG"
         value          = "/mnt/workspace/source/infra_cfg/ansible_checkov/ansible.cfg"
+        stack_name     = "ansible_checkov"
+        add_to_context = false
+      }
+      skip_plan = {
+        name           = "SPACELIFT_SKIP_PLANNING"
+        value          = true
         stack_name     = "ansible_checkov"
         add_to_context = false
       }
