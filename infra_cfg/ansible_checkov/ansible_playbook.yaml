@@ -1,3 +1,16 @@
+- name: Check if host is reachable
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Ping the host
+      ping:
+      ignore_unreachable: yes
+      register: ping_result
+      failed_when: ping_result.unreachable
+
+    - name: Skip unreachable hosts
+      meta: end_play
+      when: ping_result is unreachable
 - hosts: all
   roles:
     - role: ufw
