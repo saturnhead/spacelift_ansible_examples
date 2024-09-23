@@ -12,6 +12,7 @@
           - "9090"
         ufw_logging: 'on'
     - role: prometheus
+      become: true
       vars:
         prometheus_version: "2.38.0"
         prometheus_storage_retention: "30d"
