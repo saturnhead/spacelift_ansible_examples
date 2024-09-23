@@ -29,13 +29,14 @@
     url: "https://github.com/prometheus/prometheus/releases/download/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
     dest: "/tmp/prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
   register: prometheus_download
+  when: not ansible_check_mode  # Skip this task in dry-run mode
 
 - name: Unarchive Prometheus
   unarchive:
     src: "/tmp/prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
     dest: /tmp
     remote_src: yes
-  when: prometheus_download.changed
+  when: prometheus_download.changed and not ansible_check_mode  # Run only if download happened and not in dry-run mode
 
 - name: Copy Prometheus binary
   copy:
@@ -45,6 +46,7 @@
     group: prometheus
     mode: '0755'
     remote_src: yes
+  when: not ansible_check_mode  # Skip in dry-run mode
 
 - name: Copy Prometheus configuration
   template:

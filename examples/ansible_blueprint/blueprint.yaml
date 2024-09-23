@@ -1,0 +1,54 @@
+inputs:
+  - id: stack_name
+    name: The name of the stack
+  - id: environment_name
+    name: Name of the environment
+  - id: space
+    name: Name of the space where the stack should be. Defaults to root.
+    type: select
+    default: root
+    options:
+      - legacy
+      - root
+  - id: trigger_run
+    name: Trigger a run upon stack creation
+    type: boolean
+    default: false
+  - id: aws_region
+    name: AWS Region
+    type: select 
+    default: eu-west-1
+    options:
+      - us-east-1
+      - eu-west-1
+stack:
+  name: ${{ inputs.stack_name }}
+  space: ${{ inputs.space }}
+  description: >
+    Stack created from a blueprint by ${{ context.user.name }} logged in as ${{ context.user.login }}
+  labels:
+    - "blueprints/${{ context.blueprint.name }}"
+  vcs:
+    branch: main
+    repository: spacelift_ansible_examples
+    provider: GITHUB
+    project_root: infra_cfg/ansible_blueprint
+  vendor:
+    ansible:
+      
+  attachments:
+    clouds:
+      aws:
+        id: 01H79TE7EP3W7K4AMMV447J189
+        read: true
+        write: true 
+  environment:
+    variables:
+      - name: AWS_REGION
+        value: ${{ inputs.aws_region }}
+      - name: TF_VAR_node_name
+        value: ${{ inputs.environment_name }}
+      - name: TF_VAR_instance_size
+        value: ${{ inputs.instance_size }}
+options:
+  trigger_run: ${{ inputs.trigger_run }}

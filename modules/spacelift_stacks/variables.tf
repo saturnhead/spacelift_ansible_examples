@@ -16,6 +16,7 @@ variable "stacks" {
     before_plan             = optional(list(string), [])
     before_apply            = optional(list(string), [])
   }))
+  default = {}
 }
 
 variable "integrations" {
