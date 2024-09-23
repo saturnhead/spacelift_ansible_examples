@@ -14,7 +14,7 @@ inputs:
     default: false
   - id: custom_message
     name: Add a custom message for the Apache Hello world
-    type: string
+    type: long_text
     default: Hello world!
   - id: install_htop
     name: Do you want to install htop?
