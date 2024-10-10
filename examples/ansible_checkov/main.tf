@@ -38,7 +38,7 @@ module "spacelift_stacks" {
     }
     integrations = {
       ansible_integration = {
-        integration_id = "01H79TE7EP3W7K4AMMV447J189"
+        integration_id = var.integration_id
         stack_name     = "ansible_checkov"      
       }
     }

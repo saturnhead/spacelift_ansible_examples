@@ -12,6 +12,7 @@ variable "stacks" {
     runner_image            = optional(string, null)
     worker_pool_id          = optional(string, null)
     ansible_playbook        = optional(set(string), [])
+    kubernetes_namespace    = optional(set(string), [])
     before_init             = optional(list(string), [])
     before_plan             = optional(list(string), [])
     before_apply            = optional(list(string), [])

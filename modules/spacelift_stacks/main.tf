@@ -21,6 +21,13 @@ resource "spacelift_stack" "this" {
         playbook = ansible.value
     }
   }
+
+  dynamic "kubernetes" {
+    for_each = each.value.kubernetes_namespace
+    content {
+      namespace = kubernetes.value
+    }
+  }
 }
 
 resource "spacelift_aws_integration_attachment" "integration" {
