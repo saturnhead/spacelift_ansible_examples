@@ -29,7 +29,7 @@ module "spacelift_stacks" {
             repo                         = "spacelift_ansible_examples"
             branch                       = "main"
             project_root                 = "infra_cfg/opentofu_ak_dependency" 
-            description                  = "OpenTofu stack that creates ec2 instances"
+            description                  = "OpenTofu stack that creates ec2 instances and a eks cluster"
             labels                       = ["opentofu"]
             terraform_workflow_tool      = "OPEN_TOFU"
             terraform_smart_sanitization = true
@@ -41,7 +41,7 @@ module "spacelift_stacks" {
             description             = "K8s stack that deploys nginx inside a cluster"
             labels                  = ["opentofu"]
             kubernetes_namespace    = ["nginx"]
-            before_init             = ["$EKS_LOGIN"]
+            before_init             = ["$EKS_LOGIN", "kubectl create namespace nginx"]
         }
     }
     integrations = {
