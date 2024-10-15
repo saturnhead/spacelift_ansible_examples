@@ -28,7 +28,7 @@ module "spacelift_stacks" {
         opentofu_ak_parent = {
             repo                         = "spacelift_ansible_examples"
             branch                       = "main"
-            project_root                 = "infra_cfg/opentofu_dependency" 
+            project_root                 = "infra_cfg/opentofu_ak_dependency" 
             description                  = "OpenTofu stack that creates ec2 instances"
             labels                       = ["opentofu"]
             terraform_workflow_tool      = "OPEN_TOFU"
