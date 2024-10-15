@@ -1,21 +1,22 @@
 variable "stacks" {
   description = "A map of stack configurations"
   type = map(object({
-    branch                  = string
-    description             = string
-    project_root            = string
-    repo                    = string
-    terraform_workflow_tool = optional(string, null)
-    version                 = optional(string, null)
-    labels                  = optional(list(string), [])
-    space_name              = optional(string, "root")
-    runner_image            = optional(string, null)
-    worker_pool_id          = optional(string, null)
-    ansible_playbook        = optional(set(string), [])
-    kubernetes_namespace    = optional(set(string), [])
-    before_init             = optional(list(string), [])
-    before_plan             = optional(list(string), [])
-    before_apply            = optional(list(string), [])
+    branch                       = string
+    description                  = string
+    project_root                 = string
+    repo                         = string
+    terraform_workflow_tool      = optional(string, null)
+    version                      = optional(string, null)
+    labels                       = optional(list(string), [])
+    space_name                   = optional(string, "root")
+    runner_image                 = optional(string, null)
+    worker_pool_id               = optional(string, null)
+    ansible_playbook             = optional(set(string), [])
+    kubernetes_namespace         = optional(set(string), [])
+    before_init                  = optional(list(string), [])
+    before_plan                  = optional(list(string), [])
+    before_apply                 = optional(list(string), [])
+    terraform_smart_sanitization = optional(string, null)
   }))
   default = {}
 }

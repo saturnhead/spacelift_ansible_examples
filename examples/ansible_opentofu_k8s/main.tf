@@ -26,12 +26,13 @@ module "spacelift_stacks" {
             ansible_playbook = ["disk_threshold.yaml"]
         }
         opentofu_ak_parent = {
-            repo                    = "spacelift_ansible_examples"
-            branch                  = "main"
-            project_root            = "infra_cfg/opentofu_dependency" 
-            description             = "OpenTofu stack that creates ec2 instances"
-            labels                  = ["opentofu"]
-            terraform_workflow_tool = "OPEN_TOFU"
+            repo                         = "spacelift_ansible_examples"
+            branch                       = "main"
+            project_root                 = "infra_cfg/opentofu_dependency" 
+            description                  = "OpenTofu stack that creates ec2 instances"
+            labels                       = ["opentofu"]
+            terraform_workflow_tool      = "OPEN_TOFU"
+            terraform_smart_sanitization = true
         }
         k8s_opentofu_config = {
             repo                    = "spacelift_ansible_examples"
@@ -39,7 +40,7 @@ module "spacelift_stacks" {
             project_root            = "infra_cfg/kubernetes" 
             description             = "K8s stack that deploys nginx inside a cluster"
             labels                  = ["opentofu"]
-            kubernetes_namespace    = "nginx" 
+            kubernetes_namespace    = ["nginx"]
             before_init             = ["$EKS_LOGIN"]
         }
     }

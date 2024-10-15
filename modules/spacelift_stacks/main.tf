@@ -1,20 +1,20 @@
 resource "spacelift_stack" "this" {
-  for_each                = var.stacks
-  branch                  = each.value.branch
-  description             = each.value.description
-  name                    = each.key
-  project_root            = each.value.project_root
-  repository              = each.value.repo
-  terraform_workflow_tool = each.value.terraform_workflow_tool
-  terraform_version       = each.value.version
-  labels                  = each.value.labels
-  space_id                = each.value.space_name
-  runner_image            = each.value.runner_image
-  worker_pool_id          = each.value.worker_pool_id
-  before_init             = each.value.before_init
-  before_plan             = each.value.before_plan
-  before_apply            = each.value.before_apply
-  
+  for_each                     = var.stacks
+  branch                       = each.value.branch
+  description                  = each.value.description
+  name                         = each.key
+  project_root                 = each.value.project_root
+  repository                   = each.value.repo
+  terraform_workflow_tool      = each.value.terraform_workflow_tool
+  terraform_version            = each.value.version
+  labels                       = each.value.labels
+  space_id                     = each.value.space_name
+  runner_image                 = each.value.runner_image
+  worker_pool_id               = each.value.worker_pool_id
+  before_init                  = each.value.before_init
+  before_plan                  = each.value.before_plan
+  before_apply                 = each.value.before_apply
+  terraform_smart_sanitization = each.value.terraform_smart_sanitization
   dynamic "ansible" {
     for_each = each.value.ansible_playbook
     content {
