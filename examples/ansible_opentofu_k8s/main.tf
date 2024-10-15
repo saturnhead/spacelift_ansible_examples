@@ -11,7 +11,7 @@ terraform {
 module "spacelift_stacks" {
     source = "../../modules/spacelift_stacks"
     stacks = {
-        ansible_opentofu_inventory = {
+        ansible_ok_inventory = {
             repo             = "spacelift_ansible_examples"
             branch           = "main"
             project_root     = "infra_cfg/ansible_dependency" 
@@ -47,7 +47,7 @@ module "spacelift_stacks" {
     integrations = {
       ansible_integration = {
         integration_id = var.integration_id
-        stack_name     = "ansible_opentofu_inventory"      
+        stack_name     = "ansible_ok_inventory"      
       }
       opentofu_integration = {
         integration_id = var.integration_id
@@ -63,14 +63,14 @@ module "spacelift_stacks" {
       ansible_cfg = {
         name           = "ANSIBLE_CONFIG"
         value          = "/mnt/workspace/source/infra_cfg/ansible_dependency/ansible.cfg"
-        stack_name     = "ansible_opentofu_inventory"
+        stack_name     = "ansible_ok_inventory"
         add_to_context = false
       }
     }
     stack_dependencies = {
         opentofu_ansible = {
             stack_parent = "opentofu_ak_parent"
-            stack_child  = "ansible_opentofu_inventory"
+            stack_child  = "ansible_ok_inventory"
         }
         opentofu_k8s = {
             stack_parent = "opentofu_ak_parent"
