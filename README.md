@@ -1,12 +1,12 @@
 # Spacelift Ansible examples
 
-You can find all examples in the examples directory.
+You can find all the examples in the examples directory.
 
 ## Ansible with dynamic inventory
 
 This will run a playbook that installs nginx on all of your hosts, only if the free disk space is greater than 10.0GB.
 
-The inventory is build using AWS Dynamic inventory and it will just use the instances with the Env: dev tags, from the eu-west-1 region that are in a running state:
+The inventory is built using AWS Dynamic inventory and it will just use the instances with the Env: dev tags, from the eu-west-1 region that are in a running state:
 
 ```yaml
 plugin: aws_ec2
@@ -25,6 +25,8 @@ To override runtime configuration for the free disk space threshold, you can use
 environment:
   SPACELIFT_ANSIBLE_CLI_ARGS: -e disk_space_threshold=2.0
 ```
+
+If you use small instances, you will definitely need to increase this threshold.
 
 ## Ansible OpenTofu
 
@@ -76,7 +78,7 @@ environment:
 
 ## Ansible blueprint
 
-In this example, you will need to go to Blueprints and select create blueprint and paste the yaml code from the **examples/ansible_blueprint/blueprint.yaml**. You will need to modify the integration_id to an integration from your environment.
+In this example, you will need to go to Blueprints, select Create Blueprint, and paste the yaml code from the **examples/ansible_blueprint/blueprint.yaml**. You will need to modify the integration_id to an integration from your environment.
 
 Publish the blueprint and then you will be able to create stacks from it:
 ![](./images/blueprint.png)
@@ -92,6 +94,6 @@ You will need to modify the integration_id to an integration from your environme
 ## Ansible OpenTofu Kubernetes
 
 This example will deploy three stacks, an OpenTofu one that will have two child dependencies: Ansible and K8s.
-The Ansible one will receive the inventory from OpenTofu, whereas the K8s will receive an eks command based on the cluster created to run in order to define the kubeconfig.
+The Ansible one will receive the inventory from OpenTofu, whereas the K8s will receive an eks command based on the cluster created to run to define the kubeconfig.
 
 You will need to modify the integration_id to an integration from your environment.
