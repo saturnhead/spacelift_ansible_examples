@@ -1,31 +1,6 @@
-# - hosts: localhost
-#   gather_facts: false
-  
-#   tasks:
-#     - name: Retrieve SSH private key from SSM
-#       command: aws ssm get-parameter --name "/dev/ssh/private_key" --with-decryption --query "Parameter.Value" --output text
-#       register: ssh_key
-
-#     - name: Save the private key to a file
-#       copy:
-#         content: "{{ ssh_key.stdout }}"
-#         dest: "/tmp/ansible_key.pem"
-#         mode: '0600'
-
-#     - name: Set ansible_ssh_private_key_file variable globally
-#       set_fact:
-#         ansible_ssh_private_key_file: "/tmp/ansible_key.pem"
-#       delegate_to: localhost
-#       run_once: true
-
 - hosts: all
-  # pre_tasks:
-  #   - name: Debug ansible_ssh_private_key_file variable
-  #     debug:
-  #       msg: "Using SSH key: {{ ansible_ssh_private_key_file }}"
-
   vars:
-    disk_space_threshold: 10.0
+    disk_space_threshold: 2.0
 
   tasks:
   - name: "Check available disk space on / (fail when it's less than {{ disk_space_threshold }} GB)"

@@ -30,7 +30,7 @@ If you use small instances, you will definitely need to increase this threshold.
 
 ## Ansible OpenTofu
 
-This will run a playbook that installs nginx on all of your hosts, only if the free disk space is greater than 10.0GB.
+This will run a playbook that installs nginx on all of your hosts, only if the free disk space is greater than 2.0GB.
 
 There is a dependency created between the OpenTofu configuration that creates an output of the instances and the Ansible one that receives this output and creates the inventory based on it.
 

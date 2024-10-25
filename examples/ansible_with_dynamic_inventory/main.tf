@@ -27,16 +27,10 @@ module "spacelift_stacks" {
       }
     }
     contexts = {
-      ssh_key_context = {
-        description         = "Ansible context"
-        labels              = ["autoattach:ansible"]
-        add_public_ssh_key  = true
-        add_private_ssh_key = true
-      }
       ansible_context = {
         description         = "Ansible context"
         labels              = ["autoattach:ansible"]
-        before_init         = ["python3 -m pip install boto3 --break-system-packages", "chmod 600 /mnt/workspace/id_rsa"]
+        before_init         = ["python3 -m pip install boto3 --break-system-packages", "aws ssm get-parameter --region eu-west-1 --name '/ec2_standalone/ssh/private_key' --with-decryption --query 'Parameter.Value' --output text > /mnt/workspace/id_rsa_ansible", "chmod 600 /mnt/workspace/id_rsa"]
         before_apply        = ["python3 -m pip install boto3 --break-system-packages", "chmod 600 /mnt/workspace/id_rsa"]
       }
     }

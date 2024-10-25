@@ -36,7 +36,24 @@ resource "aws_instance" "this" {
   )
 }
 
+
+resource "tls_private_key" "rsa" {
+  algorithm     = "RSA"
+  rsa_bits      = 4096
+}
+
 resource "aws_key_pair" "ssh_key" {
-  key_name   = "ec2"
-  public_key = file(var.public_key)
+  key_name   = "ec2_standalone"
+  public_key = tls_private_key.rsa.public_key_openssh
+}
+
+resource "aws_ssm_parameter" "private_key" {
+  name        = "/ec2_standalone/ssh/private_key"
+  description = "Private SSH key for EC2"
+  type        = "SecureString"
+  value       = tls_private_key.rsa.private_key_openssh
+
+  tags = {
+    environment = "dev"
+  }
 }
