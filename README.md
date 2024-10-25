@@ -34,7 +34,7 @@ This will run a playbook that installs nginx on all of your hosts, only if the f
 
 There is a dependency created between the OpenTofu configuration that creates an output of the instances and the Ansible one that receives this output and creates the inventory based on it.
 
-OpenTofu output:
+Example OpenTofu output:
 
 ```json
 {
