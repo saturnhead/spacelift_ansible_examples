@@ -54,6 +54,6 @@ resource "aws_ssm_parameter" "private_key" {
   value       = tls_private_key.rsa.private_key_openssh
 
   tags = {
-    environment = "dev"
+    environment = "devAnsible"
   }
 }

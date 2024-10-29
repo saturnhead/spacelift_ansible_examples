@@ -17,7 +17,7 @@ module "spacelift_stacks" {
             project_root     = "infra_cfg/ansible_dynamic_inventory" 
             description      = "Ansible stack that uses a dynamic AWS inventory"
             ansible_playbook = ["disk_threshold.yaml"]
-            labels           = ["ansible"]
+            labels           = ["ansibleDev"]
         }
     }
     integrations = {
@@ -29,7 +29,7 @@ module "spacelift_stacks" {
     contexts = {
       ansible_context = {
         description         = "Ansible context"
-        labels              = ["autoattach:ansible"]
+        labels              = ["autoattach:ansibleDev"]
         before_init         = ["python3 -m pip install boto3 --break-system-packages", "aws ssm get-parameter --region eu-west-1 --name '/ec2_standalone/ssh/private_key' --with-decryption --query 'Parameter.Value' --output text > /mnt/workspace/id_rsa_ansible", "chmod 600 /mnt/workspace/id_rsa_ansible"]
         before_apply        = ["python3 -m pip install boto3 --break-system-packages", "chmod 600 /mnt/workspace/id_rsa_ansible"]
       }

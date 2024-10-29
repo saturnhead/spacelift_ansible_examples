@@ -13,7 +13,7 @@ plugin: aws_ec2
 regions:
   - eu-west-1
 filters:
-  tag:Env: dev
+  tag:Env: devAnsible
   instance-state-name: running
 ```
 
