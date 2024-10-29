@@ -5,13 +5,13 @@ variable "instances" {
   }))
   default = {
     instance1 = {
-      tags = {"Env": "dev"}
+      tags = {"Env": "devAnsible"}
     }
     instance2 = {
-      tags = {"Env": "dev"}
+      tags = {"Env": "devAnsible"}
     }
     instance3 = {
-      tags = {"Env": "dev"}
+      tags = {"Env": "devAnsible"}
     }
   }
 }
