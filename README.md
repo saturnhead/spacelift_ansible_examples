@@ -89,6 +89,8 @@ The playbook installs apache2 on Ubuntu, and based on the inputs you provide, yo
 
 In this example, we will use Checkov for security vulnerability scanning. In addition to this a policy has been defined in order to show warnings for passed and failed checks.
 
+![](./images/checkov_policy.png)
+
 You will need to modify the integration_id to an integration from your environment.
 
 ## Ansible OpenTofu Kubernetes
