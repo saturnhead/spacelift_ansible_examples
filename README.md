@@ -1,6 +1,6 @@
 # Spacelift Ansible examples
 
-You can find all the examples in the examples directory.
+You can find all the examples in the examples directory. All of these examples are built using our Terraform/OpenTofu provider, so you can easily replicate them in your environment with minimum manual work.
 
 ## Ansible with dynamic inventory
 
