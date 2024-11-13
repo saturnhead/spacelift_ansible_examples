@@ -16,7 +16,7 @@ variable "stacks" {
     before_init                  = optional(list(string), [])
     before_plan                  = optional(list(string), [])
     before_apply                 = optional(list(string), [])
-    terraform_smart_sanitization = optional(string, true)
+    terraform_smart_sanitization = optional(bool, true)
   }))
   default = {}
 }
