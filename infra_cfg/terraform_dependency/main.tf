@@ -28,21 +28,21 @@ resource "aws_instance" "this" {
   instance_type               = each.value.instance_type
   key_name                    = aws_key_pair.ssh_key.key_name
   associate_public_ip_address = true
-  
+
   tags = merge(
     {
-        "Name": each.key
+      "Name" : each.key
     }, each.value.tags
   )
 }
 
 resource "tls_private_key" "rsa" {
-  algorithm     = "RSA"
-  rsa_bits      = 4096
+  algorithm = "RSA"
+  rsa_bits  = 4096
 }
 
 resource "aws_key_pair" "ssh_key" {
-  key_name   = "ec2_tofu"
+  key_name   = "ec2_terraform"
   public_key = tls_private_key.rsa.public_key_openssh
 }
 

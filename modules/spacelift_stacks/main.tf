@@ -18,7 +18,7 @@ resource "spacelift_stack" "this" {
   dynamic "ansible" {
     for_each = each.value.ansible_playbook
     content {
-        playbook = ansible.value
+      playbook = ansible.value
     }
   }
 
@@ -70,20 +70,20 @@ resource "spacelift_environment_variable" "this" {
 }
 
 resource "tls_private_key" "rsa" {
-  for_each      = {for context_key, context_value in var.contexts: context_key => context_value if context_value.add_public_ssh_key == true }
-  algorithm     = "RSA"
-  rsa_bits      = 4096
+  for_each  = { for context_key, context_value in var.contexts : context_key => context_value if context_value.add_public_ssh_key == true }
+  algorithm = "RSA"
+  rsa_bits  = 4096
 }
 
 resource "spacelift_mounted_file" "public_ssh_key" {
-  for_each      = {for context_key, context_value in var.contexts: context_key => context_value if context_value.add_public_ssh_key == true }
+  for_each      = { for context_key, context_value in var.contexts : context_key => context_value if context_value.add_public_ssh_key == true }
   context_id    = spacelift_context.this[each.key].id
   relative_path = "id_rsa.pub"
   content       = base64encode(tls_private_key.rsa[each.key].public_key_openssh)
 }
 
 resource "spacelift_mounted_file" "private_ssh_key" {
-  for_each      = {for context_key, context_value in var.contexts: context_key => context_value if context_value.add_private_ssh_key == true }
+  for_each      = { for context_key, context_value in var.contexts : context_key => context_value if context_value.add_private_ssh_key == true }
   context_id    = spacelift_context.this[each.key].id
   relative_path = "id_rsa"
   content       = base64encode(tls_private_key.rsa[each.key].private_key_openssh)
