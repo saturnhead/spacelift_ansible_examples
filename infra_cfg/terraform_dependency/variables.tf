@@ -16,5 +16,8 @@ variable "instances" {
     instance4 = {
       tags = {"Env": "prod"}
     }
+    instance5 = {
+      tags = {"Env": "prod"}
+    }
   }
 }
