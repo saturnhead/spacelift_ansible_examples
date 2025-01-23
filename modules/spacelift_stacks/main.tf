@@ -49,7 +49,6 @@ resource "spacelift_context" "this" {
   labels       = each.value.labels
 }
 
-
 resource "spacelift_policy" "this" {
   for_each = var.policies
   name     = each.value.policy_name
