@@ -2,6 +2,7 @@
 
 You can find all the examples in the examples directory. All of these examples are built using our Terraform/OpenTofu provider, so you can easily replicate them in your environment with minimum manual work.
 
+
 ## Ansible with dynamic inventory
 
 This will run a playbook that installs nginx on all of your hosts, only if the free disk space is greater than 10.0GB.
