@@ -56,3 +56,4 @@ resource "aws_ssm_parameter" "private_key" {
     environment = "dev"
   }
 }
+
